@@ -1,7 +1,10 @@
 import Game.game
 import Game.player
 import Game.human_player
+import Game.random_player
 import numpy as np
+
+
 
 
 def get_input(id_joueur):
@@ -16,7 +19,7 @@ def get_input(id_joueur):
 def main():
 	jeu=Game.game.Game()
 	player1= Game.human_player.HumanPlayer(1)
-	player2= Game.human_player.HumanPlayer(2)
+	player2= Game.random_player.RandomPlayer(2)
 	players=[player1,player2]
 
 	max_turn=jeu.get_board().size
@@ -29,6 +32,8 @@ def main():
 		# action=get_input(t)
 		action=players[t].compute_action(jeu)
 		jeu.do_action(action,t+1)
+
+		print(f'\033[33mLe joueur {t+1} a joué\033[0m')
 		if jeu.get_turn()>=7:
 			w,id=jeu.check_board()
 		if w:
