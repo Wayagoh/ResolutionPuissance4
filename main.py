@@ -3,6 +3,8 @@ import Game.player
 import Game.human_player
 import Game.random_player
 import numpy as np
+import sys
+import getopt
 
 
 
@@ -17,9 +19,43 @@ def get_input(id_joueur):
 	return action
 
 def main():
+
 	jeu=Game.game.Game()
 	player1= Game.human_player.HumanPlayer(1)
-	player2= Game.random_player.RandomPlayer(2)
+	player2= Game.human_player.HumanPlayer(2)
+
+	try:
+		opts, args = getopt.getopt(sys.argv[1:], "p:q:t",["player1=","player2=","terminal"])
+	except getopt.GetoptError as err:
+		print(err)
+		sys.exit(2)
+
+	for opt, arg in opts:
+		if opt in ("-p", "--player1"):
+			match arg:
+				case "human":
+					player1 = Game.human_player.HumanPlayer(1)
+				case "random":
+					player1 = Game.random_player.RandomPlayer(1)
+				case _:
+					print("Commande non valide pour le joueur 1, joueur humain choisi par défaut")
+					player1 = Game.human_player.HumanPlayer(1)
+		elif opt in ("-q", "--player2"):
+			match arg:
+				case "human":
+					player2 = Game.human_player.HumanPlayer(2)
+				case 'random':
+					player2 = Game.random_player.RandomPlayer(2)
+				case _:
+					print("Commande non valide pour le joueur 2, joueur humain choisi par défaut")
+					player2 = Game.human_player.HumanPlayer(2)
+		elif opt in ("-t", "--terminal"):
+			print("Mode terminal activé")
+
+
+	# jeu=Game.game.Game()
+	# player1= Game.human_player.HumanPlayer(1)
+	# player2= Game.human_player.HumanPlayer(2)
 	players=[player1,player2]
 
 	max_turn=jeu.get_board().size
@@ -47,5 +83,6 @@ def main():
 
 
 
-
-main()
+if __name__ == '__main__':
+	print(sys.argv[1:])
+	main()
