@@ -1,0 +1,13 @@
+[project]
+name = "resolution_puissance_4"
+version = "0.1.0"
+description = "Résolution du Puissance 4 à l'aide de l'IA"
+authors = [
+    {name = "Wayagoh",email = "cyril.mullier52@gmail.com"}
+]
+requires-python = ">=3.14"
+dependencies = [
+]
+
+
+
